@@ -1,19 +1,35 @@
 # Peribolos configuration for the NeoNephos org.
 #
-# Manages ONLY org membership and teams. peribolos runs with --fix-org-members
-# --fix-teams --fix-team-members (no --fix-org, no --fix-repos), so org
-# settings and repositories are intentionally NOT managed here.
+# Manages org settings, membership, teams, and team repo permissions. peribolos
+# runs with --fix-org --fix-org-members --fix-teams --fix-team-members
+# --fix-team-repos (no --fix-repos, no --fix-collaborators), so repositories
+# themselves and direct repo collaborators are NOT managed here.
 #
 # GENERATED with `peribolos --dump-full` from the LIVE org, then trimmed to
-# admins/members/teams and reviewed. This is the SINGLE SOURCE OF TRUTH: on
-# apply, the membership lists here are authoritative (a user/team removed here
-# is removed on GitHub).
+# settings/admins/members/teams and reviewed. This is the SINGLE SOURCE OF
+# TRUTH: on apply, the lists here are authoritative (a user/team removed here
+# is removed on GitHub, and a repo dropped from a team's `repos:` block has
+# that team's access revoked).
 #
 # Teams are keyed by their DISPLAY NAME (not slug), matching peribolos' model.
 #
 # See ../../docs/peribolos-setup.md
 orgs:
   neonephos:
+    # Org settings (--fix-org). default_repository_permission: none means org
+    # membership alone grants NO access to private/internal repos — access is
+    # explicit, via the team `repos:` blocks below or direct collaborators.
+    # Required for repos holding personal data (e.g. contactlist).
+    billing_email: operations@neonephos.org
+    company: ''
+    default_repository_permission: none
+    description: ''
+    email: ''
+    has_organization_projects: true
+    has_repository_projects: true
+    location: ''
+    members_can_create_repositories: true
+    name: NeoNephos Foundation
     admins:
     - estherrgarcia
     - idvoretskyi
@@ -100,6 +116,7 @@ orgs:
             privacy: closed
             repos:
               outreach: maintain
+              sig-events: maintain
           'Outreach: KPI':
             description: Team of the kpi SIG of the Outreach Committee.
             maintainers:
@@ -109,6 +126,7 @@ orgs:
             privacy: closed
             repos:
               outreach: maintain
+              sig-kpi: maintain
           'Outreach: Ambassador':
             description: Team of the Ambassador SIG of the Outreach Committee.
             maintainers:
@@ -117,6 +135,9 @@ orgs:
             - abuango
             - cix-sandmark
             privacy: closed
+            repos:
+              outreach: maintain
+              sig-ambassador: maintain
           'Outreach: Merchandise':
             description: Team of the Merchandise subgroup of the Outreach Committee.
             maintainers:
@@ -141,6 +162,7 @@ orgs:
             privacy: closed
             repos:
               outreach: maintain
+              sig-marketing-social-media: maintain
               social-media: maintain
       TAC:
         description: Members of the Technical Advisory Council
@@ -190,6 +212,9 @@ orgs:
         - ChrisWeissDT
         - stephanstackit
         privacy: closed
+        repos:
+          Sandbox: read
+          gb: maintain
       website:
         description: ''
         maintainers:

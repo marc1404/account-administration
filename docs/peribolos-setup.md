@@ -99,11 +99,11 @@ with real teams/users.
    task dump ORG=<org> > orgs/<org>/org.yaml
    ```
 
-2. **Trim** the dumped file to just `admins`, `members`, and `teams` (drop the
-   org-metadata fields like `billing_email`/`default_repository_permission` and
-   any `repos:` block — peribolos runs without `--fix-org`/`--fix-repos`, and
-   editing org settings needs an App permission the peribolos App does not
-   hold). Review the member/admin/team lists.
+2. **Trim** the dumped file to the org settings block, `admins`, `members`, and
+   `teams` (drop the top-level `repos:` block — peribolos runs without
+   `--fix-repos`). Keep every team's `repos:` block exactly as dumped: with
+   `--fix-team-repos` on, a grant missing from the file is **revoked** on
+   apply. Review the member/admin/team lists.
 3. Add a `CODEOWNERS` line for `orgs/<org>/`. The workflow discovers orgs from
    `orgs/*/org.yaml` automatically — no workflow edit needed.
 4. Open a PR. Confirm the `peribolos` check passes and its job log shows
@@ -197,12 +197,16 @@ Full schema: <https://docs.prow.k8s.io/docs/components/cli-tools/peribolos/>
 
 ## Notes / limitations
 
-- This setup manages **org membership (admins/members), teams, and team
-  membership** only. It does **not** manage org settings (`--fix-org` is off:
-  editing org metadata needs an App permission the peribolos App doesn't hold),
-  nor repositories, branch protection, or rulesets. For centrally-enforced repo
-  policy, pair it with
+- This setup manages **org settings, org membership (admins/members), teams,
+  team membership, and team repo permissions**. It does **not** manage
+  repositories themselves (`--fix-repos` off), direct repo collaborators
+  (`--fix-collaborators` off), branch protection, or rulesets. For
+  centrally-enforced repo policy, pair it with
   [`github/safe-settings`](https://github.com/github/safe-settings) later.
+- `default_repository_permission: none` is deliberate: org membership grants no
+  access to private/internal repos. Access is explicit — team `repos:` blocks
+  here, or direct collaborators on the repo. Repos holding personal data (e.g.
+  `contactlist`) depend on this.
 - Usernames are GitHub login handles (lowercase, no `@`).
 - The `peribolos` container image tag is pinned in the `Taskfile`
   (`PERIBOLOS_IMAGE`); bump it deliberately.
