@@ -16,20 +16,17 @@
 # See ../../docs/peribolos-setup.md
 orgs:
   neonephos:
-    # Org settings (--fix-org). default_repository_permission: none means org
-    # membership alone grants NO access to private/internal repos — access is
-    # explicit, via the team `repos:` blocks below or direct collaborators.
-    # Required for repos holding personal data (e.g. contactlist).
-    billing_email: operations@neonephos.org
-    company: ''
+    # Org settings (--fix-org). Only fields listed here are managed; omitted
+    # ones keep whatever GitHub has. Keep this block minimal: peribolos treats
+    # an empty string as a desired value, so listing `company: ''` against a
+    # null on GitHub produces an EditOrg call on every single run.
+    #
+    # default_repository_permission: none means org membership alone grants NO
+    # access to private repos — access is explicit, via the team `repos:` blocks
+    # below or direct collaborators. Repos holding personal data (contactlist)
+    # depend on this. Internal repos keep a read floor for enterprise members
+    # regardless of this setting.
     default_repository_permission: none
-    description: ''
-    email: ''
-    has_organization_projects: true
-    has_repository_projects: true
-    location: ''
-    members_can_create_repositories: true
-    name: NeoNephos Foundation
     admins:
     - estherrgarcia
     - idvoretskyi

@@ -66,8 +66,16 @@ Peribolos authenticates as a **GitHub App** (preferred over a PAT: not tied to a
 person, short-lived tokens, least privilege).
 
 1. Create an App (at the enterprise or a central org). Permissions:
-   - **Organization → Members: Read and write**
+   - **Organization → Members: Read and write** (`members`)
    - **Organization → Administration: Read and write**
+     (`organization_administration`)
+
+   Both are **Organization** permissions. The *Repository* permission also
+   called "Administration" is a different scope and does **not** allow
+   `PATCH /orgs/{org}`: with only that one, `--fix-org` fails the apply with
+   `403 Resource not accessible by integration`. Verify with
+   `gh api orgs/<org>/installations --jq '.installations[].permissions'` —
+   `organization_administration: write` must be listed.
 2. Generate a private key (PEM).
 3. **Install the App on each managed org.**
 4. Store the credentials as repo (or org) secrets in this repository:
@@ -204,9 +212,17 @@ Full schema: <https://docs.prow.k8s.io/docs/components/cli-tools/peribolos/>
   centrally-enforced repo policy, pair it with
   [`github/safe-settings`](https://github.com/github/safe-settings) later.
 - `default_repository_permission: none` is deliberate: org membership grants no
-  access to private/internal repos. Access is explicit — team `repos:` blocks
-  here, or direct collaborators on the repo. Repos holding personal data (e.g.
+  access to private repos. Access is explicit — team `repos:` blocks here, or
+  direct collaborators on the repo. Repos holding personal data (e.g.
   `contactlist`) depend on this.
+- Internal repos are unaffected: GitHub gives them a **minimum visibility of
+  read for all enterprise members, even when the base permission is `none`**.
+  `tac`, `Community-Management` and `social-media` therefore need no team or
+  grant to stay readable org-wide.
+- Keep the org settings block **minimal**. peribolos treats a listed empty
+  string as a desired value, and GitHub returns `null` for unset `company` /
+  `email` / `location`, so listing them as `''` makes every run issue an
+  `EditOrg` call. Omitted fields are left untouched.
 - Usernames are GitHub login handles (lowercase, no `@`).
 - The `peribolos` container image tag is pinned in the `Taskfile`
   (`PERIBOLOS_IMAGE`); bump it deliberately.
