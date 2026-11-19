@@ -68,6 +68,7 @@ orgs:
     - mkambeck
     - mengliwg
     - nnicora
+    - ntnn
     - othylmann
     - OrlinVasilev
     - peter-giese
@@ -197,6 +198,7 @@ orgs:
         maintainers:
         - jakobmoellerdev
         - Skarlso
+        - ntnn
         privacy: closed
         repos:
           account-administration: admin
