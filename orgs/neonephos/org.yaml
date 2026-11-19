@@ -58,6 +58,7 @@ orgs:
     - gehoern
     - hardl
     - KateLuzid
+    - hendrikKahl
     - kub3anni
     - gerschu73
     - gehoern
@@ -222,6 +223,7 @@ orgs:
         - afritzler
         - rdksap
         - tmang0ld
+        - hendrikKahl
         privacy: closed
         repos:
           compliance-scan: triage
