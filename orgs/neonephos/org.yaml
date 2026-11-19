@@ -190,6 +190,7 @@ orgs:
         privacy: closed
         repos:
           account-administration: triage
+          compliance-scan: triage
           guidelines-development: admin
           tac: admin
       account-administrators:
@@ -200,6 +201,7 @@ orgs:
         privacy: closed
         repos:
           account-administration: admin
+          compliance-scan: admin
       governing-board:
         description: ''
         maintainers:
