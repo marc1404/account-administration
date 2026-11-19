@@ -65,6 +65,7 @@ orgs:
     - guewa
     - janlepsky
     - maximiliantech
+    - Michael5601
     - mcherbie23
     - SandraMogee
     - marc1404
@@ -224,6 +225,7 @@ orgs:
         - rdksap
         - tmang0ld
         - hendrikKahl
+        - Michael5601
         privacy: closed
         repos:
           compliance-scan: triage
