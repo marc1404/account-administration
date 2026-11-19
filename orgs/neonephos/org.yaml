@@ -76,6 +76,7 @@ orgs:
     - rquerio
     - ScheererJ
     - SebastianWolf-SAP
+    - Skarlso
     - stephanstackit
     - tlakner
     - TobiasDeppeTSI
@@ -195,6 +196,7 @@ orgs:
         description: NeoNephos Github Account Administrators
         maintainers:
         - jakobmoellerdev
+        - Skarlso
         privacy: closed
         repos:
           account-administration: admin
