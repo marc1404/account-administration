@@ -112,6 +112,14 @@ with real teams/users.
    `--fix-repos`). Keep every team's `repos:` block exactly as dumped: with
    `--fix-team-repos` on, a grant missing from the file is **revoked** on
    apply. Review the member/admin/team lists.
+
+   If another tool owns team repository permissions for the org (e.g. Safe
+   Settings), add the org to `ORGS_WITHOUT_TEAM_REPOS` in `Taskfile.yml`
+   instead. Peribolos then runs with `--fix-team-repos=false` for that org and
+   leaves team→repo grants alone, so omitting `repos:` is safe. Per-run
+   override: `task reconcile ORG=<org> FIX_TEAM_REPOS=true`. The list lives in
+   the Taskfile (trusted on `pull_request_target`), not under `orgs/**`, so a
+   fork PR cannot flip it.
 3. Add a `CODEOWNERS` line for `orgs/<org>/`. The workflow discovers orgs from
    `orgs/*/org.yaml` automatically — no workflow edit needed.
 4. Open a PR. Confirm the `peribolos` check passes and its job log shows
