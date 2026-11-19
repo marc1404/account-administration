@@ -217,6 +217,7 @@ orgs:
         - AlexandraHaenig
         privacy: closed
         repos:
+          compliance-scan: triage
           Sandbox: read
           gb: maintain
       website:
