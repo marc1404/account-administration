@@ -52,6 +52,7 @@ orgs:
     - ChrisWeissDT
     - cix-sandmark
     - CowFreedom
+    - damyan
     - entlein
     - Fannon
     - fmui
@@ -228,6 +229,7 @@ orgs:
         - Michael5601
         - marc1404
         - OrlinVasilev
+        - damyan
         privacy: closed
         repos:
           compliance-scan: maintain
