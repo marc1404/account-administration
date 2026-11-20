@@ -230,7 +230,7 @@ orgs:
         - OrlinVasilev
         privacy: closed
         repos:
-          compliance-scan: triage
+          compliance-scan: maintain
       governing-board:
         description: ''
         maintainers:
